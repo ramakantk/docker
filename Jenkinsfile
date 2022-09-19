@@ -3,7 +3,7 @@ node {
     stage('Initialize'){
         def dockerHome = tool 'myDocker'
         env.PATH = "${dockerHome}/bin:${env.PATH}"
-       echo ${dockerHome}
+       echo env.PATH
     }
   
     stage('Clone repository') {
