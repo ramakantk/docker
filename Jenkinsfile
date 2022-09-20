@@ -12,7 +12,7 @@ node {
         def dockerHome = tool 'myDocker'
         env.PATH = "${dockerHome}/bin:${env.PATH}"
        echo env.PATH
-      echo $COSIGN_PRIVATE_KEY
+      env.COSIGN_PRIVATE_KEY = credentials('cosign-private-key')
      
     }
   
@@ -49,7 +49,7 @@ node {
    stage('sign the image') {
     
         sh 'cosign version'
-        sh 'cosign sign --key $COSIGN_PRIVATE_KEY mailtoramakant/test:latest'
+        sh 'cosign sign --key $env.COSIGN_PRIVATE_KEY mailtoramakant/test:latest'
     
     }
 }
