@@ -44,12 +44,15 @@ node {
     }
   
    stage('sign the image') {
+     
+     withCredentials([file(credentialsId: 'cosign-private-key', variable: 'FILE')]) {
+      sh 'echo $FILE'
+    }
+     
       environment {
        COSIGN_PASSWORD=credentials('cosign-password')
       COSIGN_PRIVATE_KEY=credentials('cosign-private-key')
       }
-     echo $COSIGN_PASSWORD
-      echo $COSIGN_PRIVATE_KEY
         sh 'cosign version'
         sh 'cosign sign --key $COSIGN_PRIVATE_KEY mailtoramakant/test:latest'
     }
