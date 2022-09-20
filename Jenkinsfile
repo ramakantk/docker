@@ -44,6 +44,7 @@ node {
      
      withCredentials([file(credentialsId: 'cosign-private-key', variable: 'COSIGN_PRIVATE_KEY')]) {
          sh 'cosign version'
+       sh 'export GPG_TTY=$(tty)'
       sh 'cosign sign --key $COSIGN_PRIVATE_KEY mailtoramakant/test:latest'
     }
    }
