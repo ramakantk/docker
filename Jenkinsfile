@@ -1,7 +1,4 @@
-environment {
-    COSIGN_PASSWORD=credentials('cosign-password')
-    COSIGN_PRIVATE_KEY=credentials('cosign-private-key')
-    }
+
 node {
     
     def app
@@ -9,6 +6,8 @@ node {
         def dockerHome = tool 'myDocker'
         env.PATH = "${dockerHome}/bin:${env.PATH}"
        echo env.PATH
+        COSIGN_PASSWORD=credentials('cosign-password')
+    COSIGN_PRIVATE_KEY=credentials('cosign-private-key')
     }
   
     stage('Clone repository') {
@@ -44,7 +43,7 @@ node {
    stage('sign the image') {
     
         sh 'cosign version'
-        sh 'cosign sign --key credentials('cosign-private-key') mailtoramakant/test:latest'
+        sh 'cosign sign --key COSIGN_PRIVATE_KEY mailtoramakant/test:latest'
     
     }
 }
