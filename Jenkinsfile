@@ -46,7 +46,11 @@ node {
    stage('sign the image') {
     
         sh 'cosign version'
-        sh 'cosign sign --key env.COSIGN_PRIVATE_KEY mailtoramakant/test:latest'
+     
+     withCredentials([file(cosign-private-key: 'secretFile', variable: SCOSIGN_PRIVATE_KEY)]) {
+        sh 'cosign sign --key ${COSIGN_PRIVATE_KEY} mailtoramakant/test:latest'
+    }
+     
     
     }
 }
