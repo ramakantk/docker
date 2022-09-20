@@ -9,7 +9,7 @@ node {
        echo env.PATH
       env.COSIGN_PRIVATE_KEY = credentials('cosign-private-key')
       env.COSIGN_PASSWORD=credentials('cosign-password')
-      
+      echo env.COSIGN_PRIVATE_KEY
      
     }
   
