@@ -1,4 +1,8 @@
 node {
+    environment {
+    COSIGN_PASSWORD=credentials('cosign-password')
+    COSIGN_PRIVATE_KEY=credentials('cosign-private-key')
+    }
     def app
     stage('Initialize'){
         def dockerHome = tool 'myDocker'
@@ -25,11 +29,21 @@ node {
         }
     }
 
+ 
+  
+  
     stage('Push image') {
         
         docker.withRegistry('https://registry.hub.docker.com', 'docker') {
             app.push("${env.BUILD_NUMBER}")
             app.push("latest")
         }
+    }
+  
+   stage('sign the image') {
+      steps {
+        sh 'cosign version'
+        sh 'cosign sign --key $COSIGN_PRIVATE_KEY mailtoramakant/test:latest'
+      }
     }
 }
