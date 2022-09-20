@@ -8,6 +8,8 @@ node {
        echo env.PATH
         COSIGN_PASSWORD=credentials('cosign-password')
     COSIGN_PRIVATE_KEY=credentials('cosign-private-key')
+      
+      echo COSIGN_PRIVATE_KEY
     }
   
     stage('Clone repository') {
