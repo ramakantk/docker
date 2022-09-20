@@ -41,9 +41,9 @@ node {
     }
   
    stage('sign the image') {
-      steps {
+    
         sh 'cosign version'
         sh 'cosign sign --key $COSIGN_PRIVATE_KEY mailtoramakant/test:latest'
-      }
+    
     }
 }
