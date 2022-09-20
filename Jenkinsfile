@@ -3,16 +3,13 @@ node {
     
     def app
   
-  environment {
-   
-    COSIGN_PASSWORD=credentials('cosign-password')
-    COSIGN_PRIVATE_KEY=credentials('cosign-private-key')
-  }
     stage('Initialize'){
         def dockerHome = tool 'myDocker'
         env.PATH = "${dockerHome}/bin:${env.PATH}"
        echo env.PATH
       env.COSIGN_PRIVATE_KEY = credentials('cosign-private-key')
+      env.COSIGN_PASSWORD=credentials('cosign-password')
+      
      
     }
   
@@ -49,7 +46,7 @@ node {
    stage('sign the image') {
     
         sh 'cosign version'
-        sh 'cosign sign --key $env.COSIGN_PRIVATE_KEY mailtoramakant/test:latest'
+        sh 'cosign sign --key env.COSIGN_PRIVATE_KEY mailtoramakant/test:latest'
     
     }
 }
