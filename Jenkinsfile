@@ -12,6 +12,7 @@ node {
         def dockerHome = tool 'myDocker'
         env.PATH = "${dockerHome}/bin:${env.PATH}"
        echo env.PATH
+      echo $COSIGN_PRIVATE_KEY
      
     }
   
